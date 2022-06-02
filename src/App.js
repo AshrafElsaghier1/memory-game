@@ -1,25 +1,27 @@
-import logo from './logo.svg';
-import './App.css';
-
+import { useState } from 'react';
+import Background from './components/Background';
+import Settings from './components/Settings';
+import Board from './components/Board';
 function App() {
-  return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
-  );
+    const [gameOptions, setGameOptions] = useState(null);
+
+    const startGame = options => {
+        setGameOptions(options);
+    };
+    const restartGame = () => {
+        setGameOptions(null);
+    };
+    return (
+        <>
+            <Background />
+            <h1>Memory Game</h1>
+            {!gameOptions ? (
+                <Settings startGame={startGame} />
+            ) : (
+                <Board gameOptions={gameOptions} restartGame={restartGame} />
+            )}
+        </>
+    );
 }
 
 export default App;
